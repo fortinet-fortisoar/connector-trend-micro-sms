@@ -1,0 +1,313 @@
+{
+    "name": "trend-micro-sms",
+    "version": "1.0.1",
+    "label": "Trend Micro SMS",
+    "description": "Trend Micro SMS(Security Management System) Provides global vision and security policy control for threat intelligence and enables comprehensive analysis and corrections. You can configure it to automatically check for, download, and distribute filter updates to TrendMicro SMS system as well as to take immediate action on events based on yer security policy.",
+    "publisher": "Community",
+    "icon_small_name": "Trend-Micro-SMS_small.png",
+    "icon_large_name": "Trend-Micro-SMS_large.png",
+    "category": "Threat Intelligence",
+    "configuration": {
+        "fields": [
+            {
+                "title": "Server Address",
+                "name": "host",
+                "required": true,
+                "editable": true,
+                "visible": true,
+                "type": "text",
+                "description": "IP address or FQDN of the TrendMicro SMS server to which you will connect and perform the automated operations."
+            },
+            {
+                "title": "Authentication Type",
+                "required": true,
+                "editable": true,
+                "visible": true,
+                "type": "select",
+                "name": "authentication_type",
+                "value": "Basic Authentication",
+                "description": "Select this authentication type as Basic or OAuth.",
+                "options": [
+                    "Basic Auth",
+                    "API Key"
+                ],
+                "onchange": {
+                    "Basic Auth": [
+                        {
+                            "title": "SMS Username",
+                            "required": true,
+                            "editable": true,
+                            "visible": true,
+                            "type": "text",
+                            "name": "smsuser",
+                            "description": "SMS Username to access the TrendMicro SMS server to which you will connect and perform the automated operations."
+                        },
+                        {
+                            "title": "SMS Password",
+                            "required": true,
+                            "editable": true,
+                            "visible": true,
+                            "type": "password",
+                            "name": "smspass",
+                            "description": "SMS Password to access the TrendMicro SMS server to which you will connect and perform the automated operations."
+                        }
+                    ],
+                    "API Key": [
+                        {
+                            "title": "API Key",
+                            "required": true,
+                            "editable": true,
+                            "visible": true,
+                            "type": "password",
+                            "name": "api_key",
+                            "description": "SMS API Key"
+                        }
+                    ]
+                }
+            },
+            {
+                "title": "Port",
+                "name": "port",
+                "required": false,
+                "editable": true,
+                "visible": true,
+                "type": "integer",
+                "description": "Port number of the TrendMicro SMS server"
+            },
+            {
+                "title": "Verify SSL",
+                "required": false,
+                "editable": true,
+                "visible": true,
+                "type": "checkbox",
+                "name": "verify_ssl",
+                "value": true,
+                "description": "Specifies whether the SSL certificate for the server is to be verified or not. By default, this option is set as True."
+            }
+        ]
+    },
+    "operations": [
+        {
+            "operation": "import_reputation_bulk",
+            "title": "Import Reputation",
+            "description": "Imports a file that contains one or more reputation entries, which you want to import into TrendMicro SMS. TrendMicro SMS can upload one file at a time, and each file can contain multiple entries with same address type.",
+            "category": "investigation",
+            "annotation": "import_reputation_bulk",
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Import File",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "file",
+                    "name": "input_file",
+                    "tooltip": "Select a file to import",
+                    "description": "Select the file that you want to import into TrendMicro SMS. Note: All entries in the file must be of the same address type. Following address types can be imported: IPv4, IPv6, DNS, and URL."
+                },
+                {
+                    "title": "Address Type",
+                    "required": false,
+                    "editable": true,
+                    "visible": true,
+                    "type": "select",
+                    "value": "IPv4",
+                    "options": [
+                        "IPv4",
+                        "IPv6",
+                        "DNS",
+                        "URL"
+                    ],
+                    "name": "address_type",
+                    "tooltip": "Select address type to add entry to database. Default set to IPv4",
+                    "description": "Address type that you are importing into TrendMicro SMS. This address type is used to add a reputation entry in the database. By default, this is set to IPv4."
+                }
+            ],
+            "output_schema": {}
+        },
+        {
+            "operation": "add_reputation_entry",
+            "title": "Add Reputation Entry",
+            "description": "Add a new reputation entry to the TrendMicro SMS database based on the address tag and values, and other input parameters you have specified.",
+            "category": "investigation",
+            "annotation": "add_reputation_entry",
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Address Type",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "select",
+                    "options": [
+                        "IP",
+                        "DNS",
+                        "URL"
+                    ],
+                    "value": "IP",
+                    "name": "address_type",
+                    "tooltip": "Select address type to add entry to database",
+                    "description": "Address type to be added to the TrendMicro SMS database. You can select from the following options: IP, DNS, or URL."
+                },
+                {
+                    "title": "Address values",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "text",
+                    "name": "address_value",
+                    "tooltip": "Enter address values to add into database",
+                    "description": "Values of the address to be added to the TrendMicro SMS database based on the address type you have selected. For example, if you choose IP, then you can add values such as 1.1.1.1."
+                },
+                {
+                    "title": "Tag Data",
+                    "required": false,
+                    "editable": true,
+                    "visible": true,
+                    "type": "text",
+                    "name": "tag_data",
+                    "tooltip": "One or more tag categories and their values.The list values must be separated by ~~~. For example:MalwareIpType,malwareSource~~~cncHost",
+                    "description": "(Optional) One or more tag categories and their values that you want to add to the reputation entry in the TrendMicro SMS database. The list values must be separated by ~~~. For example: MalwareIpType,malwareSource~~~cncHost"
+                }
+            ],
+            "output_schema": {}
+        },
+        {
+            "operation": "delete_reputation_entry",
+            "title": "Delete Reputation Entries",
+            "description": "Deletes one or more reputation entries from the TrendMicro SMS database based on the list of IP addresses, URLs, or DNSs, and other input parameters you have specified.",
+            "category": "investigation",
+            "annotation": "delete_reputation_entry",
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "List OF IPs",
+                    "required": false,
+                    "editable": true,
+                    "visible": true,
+                    "type": "text",
+                    "name": "ip_list",
+                    "tooltip": "List of IPv4 or IPv6 address of the Reputation entry to delete",
+                    "description": "List of IPv4 or IPv6 addresses based on which you want to delete the reputation entry from TrendMicro SMS. Note: You must specify either the list of IP address, DNSs, or URLs."
+                },
+                {
+                    "title": "List OF DNS",
+                    "required": false,
+                    "editable": true,
+                    "visible": true,
+                    "type": "text",
+                    "name": "dns_list",
+                    "tooltip": "List of DNS address of the Reputation entry to delete",
+                    "description": "List of DNS addresses based on which you want to delete the reputation entry from TrendMicro SMS."
+                },
+                {
+                    "title": "List OF URLs",
+                    "required": false,
+                    "editable": true,
+                    "visible": true,
+                    "type": "text",
+                    "name": "url_list",
+                    "tooltip": "Reputation URL entry to delete from database",
+                    "description": "List of URLs based on which you want to delete the reputation entry from TrendMicro SMS."
+                },
+                {
+                    "title": "Criteria",
+                    "required": false,
+                    "editable": true,
+                    "visible": true,
+                    "type": "select",
+                    "options": [
+                        "ALL",
+                        "USER",
+                        "REPDV",
+                        "ENTRY"
+                    ],
+                    "name": "criteria",
+                    "value": "ENTRY",
+                    "tooltip": "Select criteria to delete entry",
+                    "description": "Criteria to delete the reputation entry from TrendMicro SMS.  You can choose from the following values: All: Deletes all the reputation entries, including user-defined and RepDV entries. USER: Deletes all user-defined entries. REPDV: Deletes all RepDV entries. ENTRY: Deletes specified entries."
+                }
+            ],
+            "output_schema": {}
+        },
+        {
+            "operation": "delete_reputation_bulk",
+            "title": "Delete Reputation",
+            "description": "Imports a file that contains one or more reputation entries, which you want to delete from TrendMicro SMS. TrendMicro SMS can upload one file at a time, and each file can contain multiple entries with same address type.",
+            "category": "investigation",
+            "annotation": "delete_reputation_bulk",
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Import File",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "file",
+                    "name": "input_file",
+                    "tooltip": "Import a file with Reputation entries to delete from the SMS",
+                    "description": "Imports a file that contains one or more reputation entries, that you want to delete from TrendMicro SMS. TrendMicro SMS can upload one file at a time, and each file can contain multiple entries with same address type."
+                },
+                {
+                    "title": "Address Type",
+                    "required": false,
+                    "editable": true,
+                    "visible": true,
+                    "type": "select",
+                    "value": "IPv4",
+                    "options": [
+                        "IPv4",
+                        "IPv6",
+                        "DNS",
+                        "URL"
+                    ],
+                    "name": "address_type",
+                    "tooltip": "Select address type of values which are present in file to delete entries from database. Default set to IPv4",
+                    "description": "Address type that you want to delete from TrendMicro SMS. This address type is used to delete the reputation entry from the database. By default, this is set to IPv4."
+                }
+            ],
+            "output_schema": {}
+        },
+        {
+            "operation": "query_reputation_entry",
+            "title": "Query Reputation Entries",
+            "description": "Searches the TrendMicro SMS Reputation database for one or more user reputation entries based on the list of IP addresses, URLs, or DNSs that you have specified.",
+            "category": "investigation",
+            "annotation": "query_reputation_entry",
+            "enabled": true,
+            "parameters": [
+                {
+                    "title": "Address Type",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "select",
+                    "options": [
+                        "IP",
+                        "DNS",
+                        "URL"
+                    ],
+                    "value": "IP",
+                    "name": "address_type",
+                    "tooltip": "Select address type to search in database",
+                    "description": "Type of address that you want to search in TrendMicro SMS database.  You can select from the following options: IP, DNS, or URL."
+                },
+                {
+                    "title": "Address values",
+                    "required": true,
+                    "editable": true,
+                    "visible": true,
+                    "type": "text",
+                    "name": "address_value",
+                    "tooltip": "Enter address values to search into database",
+                    "description": "Values of the address that you want to search for in the TrendMicro SMS database"
+                }
+            ],
+            "output_schema": {}
+        }
+    ],
+    "icon_medium_name": "Trend-Micro-SMS_medium.png",
+    "cs_approved": false,
+    "cs_compatible": true,
+    "help_online": "https://help.cybersponse.com/support/solutions/articles/17000084817-trendmicro-sms-v1-0-0"
+}
