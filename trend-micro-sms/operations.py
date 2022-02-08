@@ -167,7 +167,6 @@ def query_reputation_entry(config, params):
 
 def check_health(config):
     try:
-        logger.error(config)
         response = make_rest_call('dbAccess/tptDBServlet?method=Status', config)
         if response:
             logger.info("Check health successful.. {}".format(response))
