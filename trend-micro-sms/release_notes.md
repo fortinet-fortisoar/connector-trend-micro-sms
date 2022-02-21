@@ -1,0 +1,1 @@
+- Added API Key authentication option in addition to the existing username/password (Basic Auth) one
