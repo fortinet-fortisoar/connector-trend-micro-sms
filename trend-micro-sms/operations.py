@@ -1,5 +1,10 @@
-import json
+""" Copyright start
+  Copyright (C) 2008 - 2022 Fortinet Inc.
+  All rights reserved.
+  FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
+  Copyright end """
 
+import json
 from requests.auth import HTTPBasicAuth
 from requests import request, exceptions as req_exceptions
 from connectors.core.connector import get_logger, ConnectorError
@@ -8,34 +13,41 @@ from integrations.crudhub import make_request
 
 logger = get_logger('trend-micro-sms')
 
+
 def _get_config(config):
     verify_ssl = config.get("verify_ssl", None)
-    host = config.get("host")
     port = config.get("port")
-    if port:
-        server_url = '{0}:{1}'.format(host, port)
+    url = config.get('host').strip('/')
+    if not url.startswith('https://') and not url.startswith('http://'):
+        if port:
+            server_url = 'https://{0}:{1}'.format(url, port)
+        else:
+            server_url = 'https://{0}'.format(url)
     else:
-        server_url = host
+        if port:
+            server_url = url + ':{0}'.format(port)
+        else:
+            server_url = url
     return server_url, verify_ssl
 
 
 def make_rest_call(endpoint, config, files=None, data=None, params=None, method='GET'):
     credentials = None
     server_url, verify_ssl = _get_config(config)
-    url = '{}/{}'.format(server_url,endpoint)
+    url = '{0}/{1}'.format(server_url, endpoint)
     headers = {"Content-Type": "application/json"}
     auth_type = config.get('authentication_type')
     if auth_type == 'Basic Auth':
-        credentials = HTTPBasicAuth(config.get('smsuser'),config.get('smspass'))
+        credentials = HTTPBasicAuth(config.get('smsuser'), config.get('smspass'))
     elif auth_type == 'API Key':
-    	headers.update({'X-SMS-API-KEY':config.get('api_key')})
-    
+        headers.update({'X-SMS-API-KEY': config.get('api_key')})
+
     try:
         response = request(method, url, data=json.dumps(data) if data else data, auth=credentials,
-                    headers=headers, params=params, files=files, verify=verify_ssl)
+                           headers=headers, params=params, files=files, verify=verify_ssl)
 
         if response.ok:
-            logger.info('Successfully got response for url {}'.format(url))
+            logger.info('Successfully got response for url {0}'.format(url))
             if 'json' in str(response.headers):
                 return response.json()
             else:
@@ -93,6 +105,7 @@ def add_reputation_entry(config, params):
         logger.exception(str(err))
         raise ConnectorError(str(err))
 
+
 def build_url(address_type, lst):
     try:
         if type(lst) == str:
@@ -105,6 +118,7 @@ def build_url(address_type, lst):
         logger.exception(str(err))
         raise ConnectorError(str(err))
 
+
 def delete_reputation_entry(config, params):
     try:
         ip_list = params.get('ip_list', [])
@@ -115,8 +129,10 @@ def delete_reputation_entry(config, params):
             logger.error('At least one parameter is required')
             raise ConnectorError('At least one parameter is required')
         if ip_list == [] and dns_list == [] and url_list == [] and criteria == 'ENTRY':
-            logger.error('When you choose criteria as "ENTRY", At least one parameter is required from "List OF IPs", "List OF URLs or "List OF DNS')
-            raise ConnectorError('When you choose criteria as "ENTRY", At least one parameter is required from "List OF IPs", "List OF URLs or "List OF DNS')
+            logger.error(
+                'When you choose criteria as "ENTRY", At least one parameter is required from "List OF IPs", "List OF URLs or "List OF DNS')
+            raise ConnectorError(
+                'When you choose criteria as "ENTRY", At least one parameter is required from "List OF IPs", "List OF URLs or "List OF DNS')
         if criteria:
             param = {
                 'criteria': criteria
@@ -169,7 +185,7 @@ def check_health(config):
     try:
         response = make_rest_call('dbAccess/tptDBServlet?method=Status', config)
         if response:
-            logger.info("Check health successful.. {}".format(response))
+            logger.info("Check health successful.. {0}".format(response))
             return True
     except Exception as err:
         raise ConnectorError(str(err))
