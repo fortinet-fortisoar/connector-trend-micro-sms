@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "label": "Trend Micro SMS",
   "description": "Trend Micro SMS(Security Management System) Provides global vision and security policy control for threat intelligence and enables comprehensive analysis and corrections. You can configure it to automatically check for, download, and distribute filter updates to TrendMicro SMS system as well as to take immediate action on events based on yer security policy.",
-  "publisher": "Community",
+  "publisher": "Fortinet",
   "icon_small_name": "Trend-Micro-SMS_small.png",
   "icon_large_name": "Trend-Micro-SMS_large.png",
   "category": "Threat Intelligence",
@@ -307,7 +307,7 @@
     }
   ],
   "icon_medium_name": "Trend-Micro-SMS_medium.png",
-  "cs_approved": false,
+  "cs_approved": true,
   "cs_compatible": true,
   "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.1/trend-micro-sms/235/trend-micro-sms-v1-0-1"
 }
