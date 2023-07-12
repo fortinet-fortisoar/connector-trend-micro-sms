@@ -1,10 +1,14 @@
 {
   "name": "trend-micro-sms",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "label": "Trend Micro SMS",
   "description": "Trend Micro SMS(Security Management System) Provides global vision and security policy control for threat intelligence and enables comprehensive analysis and corrections. You can configure it to automatically check for, download, and distribute filter updates to TrendMicro SMS system as well as to take immediate action on events based on yer security policy.",
   "publisher": "Fortinet",
+  "cs_approved": false,
+  "cs_compatible": true,
+  "help_online": "",
   "icon_small_name": "Trend-Micro-SMS_small.png",
+  "icon_medium_name": "Trend-Micro-SMS_medium.png",
   "icon_large_name": "Trend-Micro-SMS_large.png",
   "category": "Threat Intelligence",
   "configuration": {
@@ -304,10 +308,88 @@
         }
       ],
       "output_schema": {}
+    },
+    {
+      "operation": "quarantine_ip",
+      "title": "Quarantine IP Address",
+      "description": "Quarantine an IP address and create a response based on the IP address, policy name, or timeout that you have specified.",
+      "category": "investigation",
+      "annotation": "quarantine_ip",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "IP Address",
+          "description": "IP address for the target host that you want to quarantine in Trend Micro SMS database.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "ip",
+          "tooltip": "IP address for the target host that you want to quarantine in Trend Micro SMS."
+        },
+        {
+          "title": "Policy Name",
+          "description": "Specify the name of the policy that should must match an existing SMS Active Response policy name based on which you want to quarantine IP address in the Trend Micro SMS.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "policy_name",
+          "tooltip": "Specify the name of the policy that should must match an existing SMS Active Response policy name based on which you want to quarantine IP address in the Trend Micro SMS."
+        },
+        {
+          "title": "Timeout",
+          "description": "Specify the timeout value based on which you want to quarantine IP address in the Trend Micro SMS.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "timeout",
+          "tooltip": "Specified value overrides the default already in the policy. If not specified, the timeout value from the policy is used."
+        }
+      ],
+      "output_schema": {}
+    },
+    {
+      "operation": "unquarantine_ip",
+      "title": "UnQuarantine IP Address",
+      "description": "Un-quarantine an IP address and close a response based on the IP address, policy name, or timeout that you have specified.",
+      "category": "investigation",
+      "annotation": "unquarantine_ip",
+      "enabled": true,
+      "parameters": [
+        {
+          "title": "IP Address",
+          "description": "IP address for the target host that you want to un-quarantine in Trend Micro SMS.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "ip",
+          "tooltip": "IP address for the target host that you want to un-quarantine in Trend Micro SMS."
+        },
+        {
+          "title": "Policy Name",
+          "description": "Specify the name of the policy that should must match an existing SMS Active Response policy name based on which you want to un-quarantine IP address in the Trend Micro SMS.",
+          "required": true,
+          "editable": true,
+          "visible": true,
+          "type": "text",
+          "name": "policy_name",
+          "tooltip": "Specify the name of the policy that should must match an existing SMS Active Response policy name based on which you want to un-quarantine IP address in the Trend Micro SMS."
+        },
+        {
+          "title": "Timeout",
+          "description": "Specify the timeout value based on which you want to un-quarantine IP address in the Trend Micro SMS.",
+          "required": false,
+          "editable": true,
+          "visible": true,
+          "type": "integer",
+          "name": "timeout",
+          "tooltip": "Specified value overrides the default already in the policy. If not specified, the timeout value from the policy is used."
+        }
+      ],
+      "output_schema": {}
     }
-  ],
-  "icon_medium_name": "Trend-Micro-SMS_medium.png",
-  "cs_approved": true,
-  "cs_compatible": true,
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.1/trend-micro-sms/235/trend-micro-sms-v1-0-1"
+  ]
 }

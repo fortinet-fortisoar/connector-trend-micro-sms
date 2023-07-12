@@ -3,16 +3,14 @@
   "data": [
     {
       "@type": "WorkflowCollection",
-      "name": "Sample - Trend Micro SMS - 1.0.1",
+      "name": "Sample - Trend Micro SMS - 1.1.0",
       "description": "Sample playbooks for \"Trend Micro SMS\" connector. If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.",
       "visible": true,
-      "image": "/api/3/images/861134cb-bb17-4cb4-9a35-5941a0683ffe",
+      "image": null,
       "uuid": "d8464537-e4b9-4b7e-9db0-a0663d5bb086",
-      "id": 1161,
-      "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-      "createDate": 1645793144,
-      "modifyUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-      "modifyDate": 1645793144,
+      "id": 138,
+      "deletedAt": null,
+      "importedBy": [],
       "recordTags": [],
       "workflows": [
         {
@@ -23,6 +21,7 @@
           "tag": "#Trend Micro SMS",
           "description": "Imports a file that contains one or more reputation entries, which you want to delete from TrendMicro SMS.\nTrendMicro SMS can upload one file at a time, and each file can contain multiple entries with same address type.",
           "isActive": false,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -57,8 +56,8 @@
               "top": "30",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "299d0dca-4932-46d7-85b9-0c9eb54a9713",
-              "id": 31754
+              "group": null,
+              "uuid": "299d0dca-4932-46d7-85b9-0c9eb54a9713"
             },
             {
               "@type": "WorkflowStep",
@@ -81,7 +80,7 @@
                   },
                   "address_type": "IPv4"
                 },
-                "version": "1.0.1",
+                "version": "1.1.0",
                 "connector": "trend-micro-sms",
                 "operation": "delete_reputation_bulk",
                 "operationTitle": "Delete Reputation",
@@ -93,8 +92,8 @@
               "top": "165",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "ab8bfe28-6a33-4b9b-b718-bb8f39ce7408",
-              "id": 31755
+              "group": null,
+              "uuid": "ab8bfe28-6a33-4b9b-b718-bb8f39ce7408"
             }
           ],
           "routes": [
@@ -108,18 +107,209 @@
               "uuid": "66b3aa34-9373-4af6-a362-6ed06b6c7f13"
             }
           ],
+          "groups": [],
           "priority": null,
           "uuid": "2fb066a9-a349-43fb-a888-d6664ac12138",
+          "id": 1708,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
           "recordTags": [
             "trend-micro-sms"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Quarantine IP Address",
+          "aliasName": null,
+          "tag": "#Trend Micro SMS",
+          "description": "Quarantine an IP address and create a response based on the IP address, policy name, or timeout that you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1688540519,
+          "collection": "/api/3/workflow_collections/d8464537-e4b9-4b7e-9db0-a0663d5bb086",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/ce817a80-f2cd-45dd-9ce9-65e9690c5300",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Quarantine IP Address",
+              "description": null,
+              "arguments": {
+                "name": "Trend Micro SMS",
+                "config": "",
+                "params": {
+                  "ip": "1.1.1.1",
+                  "timeout": "",
+                  "policy_name": "quarantine-ip"
+                },
+                "version": "1.1.0",
+                "connector": "trend-micro-sms",
+                "operation": "quarantine_ip",
+                "operationTitle": "Quarantine IP Address",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "92200def-dc59-405e-80c7-64111ee570c0"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "452ff34b-e554-4b39-8378-b63021abbe98",
+                "title": "Trend Micro SMS: Quarantine IP Address",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "ce817a80-f2cd-45dd-9ce9-65e9690c5300"
+            }
           ],
-          "id": 11483,
-          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1645793144,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1645793325,
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Quarantine IP Address",
+              "targetStep": "/api/3/workflow_steps/92200def-dc59-405e-80c7-64111ee570c0",
+              "sourceStep": "/api/3/workflow_steps/ce817a80-f2cd-45dd-9ce9-65e9690c5300",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "d60f872f-4d57-49e5-abb6-05bff17f97a2"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "39ccb9c5-b3d6-47a0-9ef1-5d2c9f23cc59",
+          "id": 1713,
           "owners": [],
-          "isPrivate": false
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "trend-micro-sms"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "UnQuarantine IP Address",
+          "aliasName": null,
+          "tag": "#Trend Micro SMS",
+          "description": "Un-quarantine an IP address and close a response based on the IP address, policy name, or timeout that you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1688540505,
+          "collection": "/api/3/workflow_collections/d8464537-e4b9-4b7e-9db0-a0663d5bb086",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/a57dca1c-3865-4837-aaef-bfde1a3a9de4",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "1c3ff5b4-a93e-4b04-afb2-11e82c65a77a",
+                "title": "Trend Micro SMS: UnQuarantine IP Address",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "a57dca1c-3865-4837-aaef-bfde1a3a9de4"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "UnQuarantine IP Address",
+              "description": null,
+              "arguments": {
+                "name": "Trend Micro SMS",
+                "config": "",
+                "params": {
+                  "ip": "1.1.1.1",
+                  "timeout": "",
+                  "policy_name": "unqurantine-ip"
+                },
+                "version": "1.1.0",
+                "connector": "trend-micro-sms",
+                "operation": "unquarantine_ip",
+                "operationTitle": "UnQuarantine IP Address",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "be685bb5-18e3-4925-9441-aa5a1e484870"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> UnQuarantine IP Address",
+              "targetStep": "/api/3/workflow_steps/be685bb5-18e3-4925-9441-aa5a1e484870",
+              "sourceStep": "/api/3/workflow_steps/a57dca1c-3865-4837-aaef-bfde1a3a9de4",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "63037f16-39ee-4ab4-953e-0ea9b9c328c0"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "96c96c5b-0a87-4e79-8561-0c159a29b5c1",
+          "id": 1714,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "trend-micro-sms"
+          ]
         },
         {
           "@type": "Workflow",
@@ -129,6 +319,7 @@
           "tag": "#Trend Micro SMS",
           "description": "Imports a file that contains one or more reputation entries, which you want to import into TrendMicro SMS.\nTrendMicro SMS can upload one file at a time, and each file can contain multiple entries with same address type.",
           "isActive": false,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -159,7 +350,7 @@
                   },
                   "address_type": "IPv4"
                 },
-                "version": "1.0.1",
+                "version": "1.1.0",
                 "connector": "trend-micro-sms",
                 "operation": "import_reputation_bulk",
                 "operationTitle": "Import Reputation",
@@ -171,8 +362,8 @@
               "top": "165",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "2bb7ef3e-d9b9-4303-8c3f-6edb2e868dcf",
-              "id": 31752
+              "group": null,
+              "uuid": "2bb7ef3e-d9b9-4303-8c3f-6edb2e868dcf"
             },
             {
               "@type": "WorkflowStep",
@@ -199,8 +390,8 @@
               "top": "30",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "6ed26d65-4954-45ca-bb09-37126319cb6a",
-              "id": 31753
+              "group": null,
+              "uuid": "6ed26d65-4954-45ca-bb09-37126319cb6a"
             }
           ],
           "routes": [
@@ -214,18 +405,17 @@
               "uuid": "af282843-782a-4fb0-8d5d-bf15897042e1"
             }
           ],
+          "groups": [],
           "priority": null,
           "uuid": "beb72b3f-9c64-4af7-9f0c-4dd84af7b18a",
+          "id": 1709,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
           "recordTags": [
             "trend-micro-sms"
-          ],
-          "id": 11482,
-          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1645793144,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1645793429,
-          "owners": [],
-          "isPrivate": false
+          ]
         },
         {
           "@type": "Workflow",
@@ -235,6 +425,7 @@
           "tag": "#Trend Micro SMS",
           "description": "Deletes one or more reputation entries from the TrendMicro SMS database based on the list of IP addresses, URLs, or DNSs, and other input parameters you have specified.",
           "isActive": false,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -269,8 +460,8 @@
               "top": "30",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "7807e5e0-6164-4ac8-bf08-4a5728daab8b",
-              "id": 31748
+              "group": null,
+              "uuid": "7807e5e0-6164-4ac8-bf08-4a5728daab8b"
             },
             {
               "@type": "WorkflowStep",
@@ -285,7 +476,7 @@
                   "dns_list": "",
                   "url_list": ""
                 },
-                "version": "1.0.1",
+                "version": "1.1.0",
                 "connector": "trend-micro-sms",
                 "operation": "delete_reputation_entry",
                 "operationTitle": "Delete Reputation Entry",
@@ -297,8 +488,8 @@
               "top": "165",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "bd2c3ab1-f7a6-4875-acf2-0ab2c806cda3",
-              "id": 31749
+              "group": null,
+              "uuid": "bd2c3ab1-f7a6-4875-acf2-0ab2c806cda3"
             }
           ],
           "routes": [
@@ -312,18 +503,17 @@
               "uuid": "4f8cc739-7b93-4127-bf88-323e327fad80"
             }
           ],
+          "groups": [],
           "priority": null,
           "uuid": "bf59fd12-d3fb-4141-af9c-e7453b5c8f19",
+          "id": 1710,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
           "recordTags": [
             "trend-micro-sms"
-          ],
-          "id": 11480,
-          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1645793144,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1645793370,
-          "owners": [],
-          "isPrivate": false
+          ]
         },
         {
           "@type": "Workflow",
@@ -333,6 +523,7 @@
           "tag": "#Trend Micro SMS",
           "description": "Searches the TrendMicro SMS Reputation database for one or more user reputation entries based on the list of IP addresses, URLs, or DNSs that you have specified.",
           "isActive": false,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -353,7 +544,7 @@
                   "address_type": "IP",
                   "address_value": "1.1.1.1"
                 },
-                "version": "1.0.1",
+                "version": "1.1.0",
                 "connector": "trend-micro-sms",
                 "operation": "query_reputation_entry",
                 "operationTitle": "Query Reputation Entry",
@@ -365,8 +556,8 @@
               "top": "165",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "b1a0c825-14c9-4f7b-a0b6-744e757a360f",
-              "id": 31750
+              "group": null,
+              "uuid": "b1a0c825-14c9-4f7b-a0b6-744e757a360f"
             },
             {
               "@type": "WorkflowStep",
@@ -393,8 +584,8 @@
               "top": "30",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "d7f65997-207e-4377-91f8-a0a8ce89d538",
-              "id": 31751
+              "group": null,
+              "uuid": "d7f65997-207e-4377-91f8-a0a8ce89d538"
             }
           ],
           "routes": [
@@ -408,18 +599,17 @@
               "uuid": "7eb1e9fe-7971-474d-9bd0-c59d88a07594"
             }
           ],
+          "groups": [],
           "priority": null,
           "uuid": "d89f452f-95a9-44f7-a72f-a00b1714f9f0",
+          "id": 1711,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
           "recordTags": [
             "trend-micro-sms"
-          ],
-          "id": 11481,
-          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1645793144,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1645793482,
-          "owners": [],
-          "isPrivate": false
+          ]
         },
         {
           "@type": "Workflow",
@@ -429,6 +619,7 @@
           "tag": "#Trend Micro SMS",
           "description": "Add a new reputation entry to the TrendMicro SMS database based on the address tag and values, and other input parameters you have specified.",
           "isActive": false,
+          "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [],
@@ -471,8 +662,8 @@
               "top": "30",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
-              "uuid": "e2e9e54f-4b56-4b00-b120-f816e888a862",
-              "id": 31756
+              "group": null,
+              "uuid": "e2e9e54f-4b56-4b00-b120-f816e888a862"
             },
             {
               "@type": "WorkflowStep",
@@ -486,7 +677,7 @@
                   "address_type": "IP",
                   "address_value": "1.1.1.1, 2.2.2.2"
                 },
-                "version": "1.0.1",
+                "version": "1.1.0",
                 "connector": "trend-micro-sms",
                 "operation": "add_reputation_entry",
                 "operationTitle": "Add Reputation Entry",
@@ -498,8 +689,8 @@
               "top": "165",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "uuid": "e99c36b3-e52a-4347-b1ee-e28dddc3aa24",
-              "id": 31757
+              "group": null,
+              "uuid": "e99c36b3-e52a-4347-b1ee-e28dddc3aa24"
             }
           ],
           "routes": [
@@ -513,18 +704,17 @@
               "uuid": "1d01a727-f9ea-457e-95e3-acd266ef901f"
             }
           ],
+          "groups": [],
           "priority": null,
           "uuid": "dbead39a-289c-426f-829c-8cd4a307446a",
+          "id": 1712,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
           "recordTags": [
             "trend-micro-sms"
-          ],
-          "id": 11484,
-          "createUser": "/api/3/appliances/57545210-2adc-472b-a24f-2df6ee8dfe63",
-          "createDate": 1645793144,
-          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
-          "modifyDate": 1645793273,
-          "owners": [],
-          "isPrivate": false
+          ]
         }
       ]
     }
