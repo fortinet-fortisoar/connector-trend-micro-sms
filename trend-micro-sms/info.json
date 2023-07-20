@@ -339,7 +339,7 @@
         },
         {
           "title": "Timeout",
-          "description": "Specify the timeout value based on which you want to quarantine IP address in the Trend Micro SMS.",
+          "description": "Specify the timeout value based on which you want to quarantine IP address in the Trend Micro SMS. Specified value overrides the default already in the policy. If not specified, the timeout value from the policy is used.",
           "required": false,
           "editable": true,
           "visible": true,
@@ -380,7 +380,7 @@
         },
         {
           "title": "Timeout",
-          "description": "Specify the timeout value based on which you want to un-quarantine IP address in the Trend Micro SMS.",
+          "description": "Specify the timeout value based on which you want to un-quarantine IP address in the Trend Micro SMS. Specified value overrides the default already in the policy. If not specified, the timeout value from the policy is used.",
           "required": false,
           "editable": true,
           "visible": true,
