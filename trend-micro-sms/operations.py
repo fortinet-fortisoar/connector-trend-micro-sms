@@ -1,5 +1,5 @@
 """ Copyright start
-  Copyright (C) 2008 - 2022 Fortinet Inc.
+  Copyright (C) 2008 - 2023 Fortinet Inc.
   All rights reserved.
   FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
   Copyright end """
@@ -74,6 +74,18 @@ def make_rest_call(endpoint, config, files=None, data=None, params=None, method=
         raise ConnectorError(err)
 
 
+def check_payload(payload):
+    updated_payload = {}
+    for key, value in payload.items():
+        if isinstance(value, dict):
+            nested = check_payload(value)
+            if len(nested.keys()) > 0:
+                updated_payload[key] = nested
+        elif value != '' and value is not None:
+            updated_payload[key] = value
+    return updated_payload
+
+
 def import_reputation_bulk(config, params):
     try:
         type = PARAM_MAPPING.get(params.get('address_type'), "IPv4")
@@ -99,6 +111,7 @@ def add_reputation_entry(config, params):
             address_type: address_value,
             "TagData": tag_data.encode()
         }
+        param = check_payload(param)
         response = make_rest_call('repEntries/add', config, params=param, method='POST')
         return response
     except Exception as err:
@@ -143,6 +156,7 @@ def delete_reputation_entry(config, params):
         dns_str = build_url('dns', dns_list)
         url_str = build_url('url', url_list)
         endpoint = 'repEntries/delete' + ip_str + dns_str + url_str
+        param = check_payload(param)
         response = make_rest_call(endpoint, config, params=param, method='POST')
         return response
     except Exception as err:
@@ -162,6 +176,7 @@ def delete_reputation_bulk(config, params):
             'file': data
         }
         logger.info(files)
+        param = check_payload(param)
         response = make_rest_call('repEntries/delete', config, files=files, params=param, method='POST')
         return response
     except Exception as err:
@@ -175,6 +190,36 @@ def query_reputation_entry(config, params):
         address_value = params.get('address_value')
         endpoint = 'repEntries/query{}'.format(build_url(address_type, address_value))
         response = make_rest_call(endpoint, config, method='POST')
+        return response
+    except Exception as err:
+        logger.exception(str(err))
+        raise ConnectorError(str(err))
+
+
+def quarantine_ip(config, params):
+    try:
+        endpoint = 'quarantine/quarantine?ip={0}'.format(params.get('ip'))
+        param = {
+            'policy': params.get('policy_name'),
+            'timeout': params.get('timeout')
+        }
+        param = check_payload(param)
+        response = make_rest_call(endpoint, config, params=param, method='POST')
+        return response
+    except Exception as err:
+        logger.exception(str(err))
+        raise ConnectorError(str(err))
+
+
+def unquarantine_ip(config, params):
+    try:
+        endpoint = 'quarantine/unquarantine?ip={0}'.format(params.get('ip'))
+        param = {
+            'policy': params.get('policy_name'),
+            'timeout': params.get('timeout')
+        }
+        param = check_payload(param)
+        response = make_rest_call(endpoint, config, params=param, method='POST')
         return response
     except Exception as err:
         logger.exception(str(err))
@@ -196,5 +241,7 @@ operations = {
     'add_reputation_entry': add_reputation_entry,
     'delete_reputation_entry': delete_reputation_entry,
     'delete_reputation_bulk': delete_reputation_bulk,
-    'query_reputation_entry': query_reputation_entry
+    'query_reputation_entry': query_reputation_entry,
+    'quarantine_ip': quarantine_ip,
+    'unquarantine_ip': unquarantine_ip
 }
