@@ -6,7 +6,7 @@
   "publisher": "Fortinet",
   "cs_approved": false,
   "cs_compatible": true,
-  "help_online": "",
+  "help_online": "https://docs.fortinet.com/document/fortisoar/1.1.0/trend-micro-sms/642/trend-micro-sms-v1-1-0",
   "icon_small_name": "Trend-Micro-SMS_small.png",
   "icon_medium_name": "Trend-Micro-SMS_medium.png",
   "icon_large_name": "Trend-Micro-SMS_large.png",
@@ -20,7 +20,7 @@
         "editable": true,
         "visible": true,
         "type": "text",
-        "description": "IP address or FQDN of the Trend Micro SMS server to which you will connect and perform the automated operations."
+        "description": "Specify the IP address or FQDN of the Trend Micro SMS server to which you will connect and perform the automated operations."
       },
       {
         "title": "Authentication Type",
@@ -30,7 +30,7 @@
         "type": "select",
         "name": "authentication_type",
         "value": "Basic Auth",
-        "description": "Specify the authentication type as either Basic Auth or API key.",
+        "description": "Select the authentication type as either Basic Auth or API Key using which you will connect to the Trend Micro SMS server.",
         "options": [
           "Basic Auth",
           "API Key"
@@ -76,7 +76,7 @@
         "editable": true,
         "visible": true,
         "type": "integer",
-        "description": "Port number of the Trend Micro SMS server."
+        "description": "Specify the port number using which you will connect to the Trend Micro SMS server."
       },
       {
         "title": "Verify SSL",
@@ -107,7 +107,7 @@
           "type": "file",
           "name": "input_file",
           "tooltip": "Select a file to import",
-          "description": "Select the file that you want to import into Trend Micro SMS. Note: All entries in the file must be of the same address type. Following address types can be imported: IPv4, IPv6, DNS, and URL."
+          "description": "Select the file that you want to import into Trend Micro SMS. Note: All entries in the file must be of the same address type. The following address types can be imported: IPv4, IPv6, DNS, and URL."
         },
         {
           "title": "Address Type",
@@ -124,7 +124,7 @@
           ],
           "name": "address_type",
           "tooltip": "Select address type to add entry to database. Default set to IPv4",
-          "description": "Address type that you are importing into Trend Micro SMS. This address type is used to add a reputation entry to the database. By default, this is set to IPv4."
+          "description": "Select the address type that you are importing into Trend Micro SMS. This address type is used to add a reputation entry to the database. By default, this is set to IPv4."
         }
       ],
       "output_schema": {}
@@ -132,7 +132,7 @@
     {
       "operation": "add_reputation_entry",
       "title": "Add Reputation Entry",
-      "description": "Add a new reputation entry to the Trend Micro SMS database based on the address tag and values, and other input parameters you have specified.",
+      "description": "Adds a new reputation entry to the Trend Micro SMS database based on the address tag and values, and other input parameters you have specified.",
       "category": "investigation",
       "annotation": "add_reputation_entry",
       "enabled": true,
@@ -151,7 +151,7 @@
           "value": "IP",
           "name": "address_type",
           "tooltip": "Select address type to add entry to database",
-          "description": "Address type to be added to the Trend Micro SMS database. You can select from the following options: IP, DNS, or URL."
+          "description": "Select the address type to be added to the Trend Micro SMS database. You can select from the following options: IP, DNS, or URL."
         },
         {
           "title": "Address values",
@@ -161,7 +161,7 @@
           "type": "text",
           "name": "address_value",
           "tooltip": "Enter address values to add into database",
-          "description": "Values of the address to be added to the Trend Micro SMS database based on the address type you have selected. For example, if you choose IP, then you can add values such as 1.1.1.1."
+          "description": "Specify the values of the address to be added to the Trend Micro SMS database based on the address type you have selected. For example, if you choose IP, then you can add values such as 1.1.1.1."
         },
         {
           "title": "Tag Data",
@@ -171,7 +171,7 @@
           "type": "text",
           "name": "tag_data",
           "tooltip": "One or more tag categories and their values.The list values must be separated by ~~~. For example:MalwareIpType,malwareSource~~~cncHost",
-          "description": "(Optional) One or more tag categories and their values that you want to add to the reputation entry in the Trend Micro SMS database. The list values must be separated by ~~~. For example: MalwareIpType,malwareSource~~~cncHost"
+          "description": "(Optional) Specify one or more tag categories and their values you want to add to the reputation entry in the Trend Micro SMS database. The list values must be separated by ~~~. For example: MalwareIpType,malwareSource~~~cncHost"
         }
       ],
       "output_schema": {}
@@ -192,7 +192,7 @@
           "type": "text",
           "name": "ip_list",
           "tooltip": "List of IPv4 or IPv6 address of the Reputation entry to delete",
-          "description": "List of IPv4 or IPv6 addresses based on which you want to delete the reputation entry from Trend Micro SMS. Note: You must specify either the list of IP addresses, DNSs, or URLs."
+          "description": "Specify the list of IPv4 or IPv6 addresses using which you want to delete the reputation entry from Trend Micro SMS. Note: You must specify either the list of IP addresses, DNSs, or URLs."
         },
         {
           "title": "List OF DNS",
@@ -202,7 +202,7 @@
           "type": "text",
           "name": "dns_list",
           "tooltip": "List of DNS address of the Reputation entry to delete",
-          "description": "List of DNS addresses based on which you want to delete the reputation entry from Trend Micro SMS."
+          "description": "Specify the list of DNS addresses using which you want to delete the reputation entry from Trend Micro SMS."
         },
         {
           "title": "List OF URLs",
@@ -212,7 +212,7 @@
           "type": "text",
           "name": "url_list",
           "tooltip": "Reputation URL entry to delete from database",
-          "description": "List of URLs based on which you want to delete the reputation entry from Trend Micro SMS."
+          "description": "Specify the list of URLs using which you want to delete the reputation entry from Trend Micro SMS."
         },
         {
           "title": "Criteria",
@@ -229,7 +229,7 @@
           "name": "criteria",
           "value": "ENTRY",
           "tooltip": "Select criteria to delete entry",
-          "description": "Criteria to delete the reputation entry from Trend Micro SMS.  You can choose from the following values: All: Deletes all the reputation entries, including user-defined and RepDV entries. USER: Deletes all user-defined entries. REPDV: Deletes all RepDV entries. ENTRY: Deletes specified entries."
+          "description": "Select the criteria to delete the reputation entry from Trend Micro SMS. You can choose from the following values: All, USER, REPDV, or ENTRY"
         }
       ],
       "output_schema": {}
@@ -250,7 +250,7 @@
           "type": "file",
           "name": "input_file",
           "tooltip": "Import a file with Reputation entries to delete from the SMS",
-          "description": "Imports a file that contains one or more reputation entries, that you want to delete from Trend Micro SMS. Trend Micro SMS can upload one file at a time, and each file can contain multiple entries with the same address type."
+          "description": "Select the file that you want to import into Trend Micro SMS. The file that you import must contain one or more reputation entries, that you want to delete from Trend Micro SMS. NOTE: Trend Micro SMS can upload one file at a time, and each file can contain multiple entries with the same address type."
         },
         {
           "title": "Address Type",
@@ -267,7 +267,7 @@
           ],
           "name": "address_type",
           "tooltip": "Select address type of values which are present in file to delete entries from database. Default set to IPv4",
-          "description": "Address type that you want to delete from Trend Micro SMS. This address type is used to delete the reputation entry from the database. By default, this is set to IPv4."
+          "description": "Select the address type that you want to delete from Trend Micro SMS. This address type is used to delete the reputation entry from the database. By default, this is set to IPv4."
         }
       ],
       "output_schema": {}
@@ -294,7 +294,7 @@
           "value": "IP",
           "name": "address_type",
           "tooltip": "Select address type to search in database",
-          "description": "Type of address that you want to search in Trend Micro SMS database.  You can select from the following options: IP, DNS, or URL."
+          "description": "Select the type of address that you want to search in the Trend Micro SMS database. You can select from the following options: IP, DNS, or URL."
         },
         {
           "title": "Address values",
@@ -304,7 +304,7 @@
           "type": "text",
           "name": "address_value",
           "tooltip": "Enter address values to search into database",
-          "description": "Values of the address that you want to search for in the Trend Micro SMS database based on the address type you have selected. For example, if you choose IP, then you can add values such as 1.1.1.1."
+          "description": "Specify the values of the address that you want to search for in the Trend Micro SMS database based on the address type you have selected. For example, if you choose IP, then you can add values such as 1.1.1.1."
         }
       ],
       "output_schema": {}
@@ -312,81 +312,81 @@
     {
       "operation": "quarantine_ip",
       "title": "Quarantine IP Address",
-      "description": "Quarantine an IP address and create a response based on the IP address, policy name, or timeout that you have specified.",
+      "description": "Quarantines the provided IP address and creates a response based on the IP address, policy name, or timeout you have specified.",
       "category": "investigation",
       "annotation": "quarantine_ip",
       "enabled": true,
       "parameters": [
         {
           "title": "IP Address",
-          "description": "IP address for the target host that you want to quarantine in Trend Micro SMS database.",
+          "description": "Specify the IP address of the target host you want to quarantine in the Trend Micro SMS database.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "ip",
-          "tooltip": "IP address for the target host that you want to quarantine in Trend Micro SMS."
+          "tooltip": "Specify the IP address of the target host you want to quarantine in the Trend Micro SMS database."
         },
         {
           "title": "Policy Name",
-          "description": "Specify the name of the policy that should must match an existing SMS Active Response policy name based on which you want to quarantine IP address in the Trend Micro SMS.",
+          "description": "Specify the name of the policy to be matched with an existing SMS Active Response policy using which you want to quarantine the provided IP address in Trend Micro SMS.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "policy_name",
-          "tooltip": "Specify the name of the policy that should must match an existing SMS Active Response policy name based on which you want to quarantine IP address in the Trend Micro SMS."
+          "tooltip": "Specify the name of the policy to be matched with an existing SMS Active Response policy using which you want to quarantine the provided IP address in Trend Micro SMS."
         },
         {
           "title": "Timeout",
-          "description": "Specify the timeout value based on which you want to quarantine IP address in the Trend Micro SMS. Specified value overrides the default already in the policy. If not specified, the timeout value from the policy is used.",
+          "description": "(Optional) Specify the timeout value using which you want to quarantine the provided IP address in Trend Micro SMS. The specified value overrides the default timeout value already specified in the policy. If you do not specify the timeout value, then the timeout value from the policy is used.",
           "required": false,
           "editable": true,
           "visible": true,
           "type": "integer",
           "name": "timeout",
-          "tooltip": "Specified value overrides the default already in the policy. If not specified, the timeout value from the policy is used."
+          "tooltip": "(Optional) Specify the timeout value using which you want to quarantine the provided IP address in Trend Micro SMS. The specified value overrides the default timeout value already specified in the policy. If you do not specify the timeout value, then the timeout value from the policy is used."
         }
       ],
       "output_schema": {}
     },
     {
       "operation": "unquarantine_ip",
-      "title": "UnQuarantine IP Address",
-      "description": "Un-quarantine an IP address and close a response based on the IP address, policy name, or timeout that you have specified.",
+      "title": "Unquarantine IP Address",
+      "description": "Unquarantines the specified IP address and closes a response based on the IP address, policy name, or timeout you have specified.",
       "category": "investigation",
       "annotation": "unquarantine_ip",
       "enabled": true,
       "parameters": [
         {
           "title": "IP Address",
-          "description": "IP address for the target host that you want to un-quarantine in Trend Micro SMS.",
+          "description": "Specify the IP address of the target host whose quarantine you want to remove from the Trend Micro SMS database.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "ip",
-          "tooltip": "IP address for the target host that you want to un-quarantine in Trend Micro SMS."
+          "tooltip": "Specify the IP address of the target host whose quarantine you want to remove from the Trend Micro SMS database."
         },
         {
           "title": "Policy Name",
-          "description": "Specify the name of the policy that should must match an existing SMS Active Response policy name based on which you want to un-quarantine IP address in the Trend Micro SMS.",
+          "description": "Specify the name of the policy to be matched with an existing SMS Active Response policy using which you want to remove the quarantine of the provided IP address in Trend Micro SMS.",
           "required": true,
           "editable": true,
           "visible": true,
           "type": "text",
           "name": "policy_name",
-          "tooltip": "Specify the name of the policy that should must match an existing SMS Active Response policy name based on which you want to un-quarantine IP address in the Trend Micro SMS."
+          "tooltip": "Specify the name of the policy to be matched with an existing SMS Active Response policy using which you want to remove the quarantine of the provided IP address in Trend Micro SMS."
         },
         {
           "title": "Timeout",
-          "description": "Specify the timeout value based on which you want to un-quarantine IP address in the Trend Micro SMS. Specified value overrides the default already in the policy. If not specified, the timeout value from the policy is used.",
+          "description": "(Optional) Specify the timeout value using which you want to remove the quarantine of the provided IP address in Trend Micro SMS. The specified value overrides the default timeout value already specified in the policy. If you do not specify the timeout value, then the timeout value from the policy is used.",
           "required": false,
           "editable": true,
           "visible": true,
           "type": "integer",
           "name": "timeout",
-          "tooltip": "Specified value overrides the default already in the policy. If not specified, the timeout value from the policy is used."
+          "tooltip": "(Optional) Specify the timeout value using which you want to remove the quarantine of the provided IP address in Trend Micro SMS. The specified value overrides the default timeout value already specified in the policy. If you do not specify the timeout value, then the timeout value from the policy is used."
         }
       ],
       "output_schema": {}
