@@ -218,10 +218,10 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "UnQuarantine IP Address",
+          "name": "Unquarantine IP Address",
           "aliasName": null,
           "tag": "#Trend Micro SMS",
-          "description": "Un-quarantine an IP address and close a response based on the IP address, policy name, or timeout that you have specified.",
+          "description": "Unquarantine an IP address and close a response based on the IP address, policy name, or timeout that you have specified.",
           "isActive": false,
           "debug": false,
           "singleRecordExecution": false,
@@ -239,7 +239,7 @@
               "description": null,
               "arguments": {
                 "route": "1c3ff5b4-a93e-4b04-afb2-11e82c65a77a",
-                "title": "Trend Micro SMS: UnQuarantine IP Address",
+                "title": "Trend Micro SMS: Unquarantine IP Address",
                 "resources": [
                   "alerts"
                 ],
@@ -263,7 +263,7 @@
             },
             {
               "@type": "WorkflowStep",
-              "name": "UnQuarantine IP Address",
+              "name": "Unquarantine IP Address",
               "description": null,
               "arguments": {
                 "name": "Trend Micro SMS",
@@ -276,7 +276,7 @@
                 "version": "1.1.0",
                 "connector": "trend-micro-sms",
                 "operation": "unquarantine_ip",
-                "operationTitle": "UnQuarantine IP Address",
+                "operationTitle": "Unquarantine IP Address",
                 "pickFromTenant": false,
                 "step_variables": []
               },
@@ -291,7 +291,7 @@
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Start -> UnQuarantine IP Address",
+              "name": "Start -> Unquarantine IP Address",
               "targetStep": "/api/3/workflow_steps/be685bb5-18e3-4925-9441-aa5a1e484870",
               "sourceStep": "/api/3/workflow_steps/a57dca1c-3865-4837-aaef-bfde1a3a9de4",
               "label": null,

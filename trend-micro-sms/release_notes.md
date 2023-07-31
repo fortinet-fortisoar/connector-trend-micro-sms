@@ -1,5 +1,5 @@
-#### What's New
+#### The following enhancements have been made to the Trend Micro SMS connector in version 1.1.0:
 
-- Following new actions has been added:
+- Added the following actions:
     - Quarantine IP Address
-    - UnQuarantine IP Address
+    - Unquarantine IP Address
